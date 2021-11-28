@@ -31,7 +31,6 @@ public class DataLoader implements CommandLineRunner {
     private void loadEmployees() throws JsonProcessingException {
 
         Employee employee = Employee.builder()
-                .employeeId(117170L)
                 .firstName("Balaji")
                 .lastName("Varadharajan")
                 .dateOfBirth(LocalDate.of(1983, 5, 21))

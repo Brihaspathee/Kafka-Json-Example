@@ -2,6 +2,9 @@ package com.example.kafkaconsumer.domain.entity;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 /**
@@ -18,8 +21,11 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Employee {
 
+    @Id
+    @GeneratedValue
     private Long employeeId;
 
     private String firstName;

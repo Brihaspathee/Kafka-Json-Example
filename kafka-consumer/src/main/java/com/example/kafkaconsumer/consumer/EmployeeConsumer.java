@@ -1,6 +1,7 @@
 package com.example.kafkaconsumer.consumer;
 
 import com.example.kafkaconsumer.domain.entity.Employee;
+import com.example.kafkaconsumer.service.interfaces.EmployeeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,13 @@ public class EmployeeConsumer {
 
     private final ObjectMapper objectMapper;
 
+    private final EmployeeService employeeService;
+
     @KafkaListener(topics = "t.employee")
     public void consumeEmployeeMessage(String employee) throws JsonProcessingException {
         log.info("Employee: {}",employee);
         Employee emp = objectMapper.readValue(employee, Employee.class);
         log.info("Employee Object: {}", emp);
+        employeeService.createEmployee(emp);
     }
 }

@@ -1,0 +1,58 @@
+version: '3.8'
+
+# docker run command
+
+# CONSUMER
+# docker container run -p 8081:8081 --net kafka-net -e SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092 vbalaji215/kafka-consumer:0.0.1-SNAPSHOT
+
+# PRODUCER
+# docker container run -p 8082:8082 --net kafka-net -e SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092 vbalaji215/kafka-producer:0.0.1-SNAPSHOT
+
+services:
+  kafka-consumer:
+    image: vbalaji215/kafka-consumer:0.0.1-SNAPSHOT
+    container_name: kafka-consumer
+    networks:
+      - kafka-net
+    volumes:
+      - type: volume
+        source: kafka-consumer-vol
+        target: /logs/local
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+  kafka-producer:
+    image: vbalaji215/kafka-producer:0.0.1-SNAPSHOT
+    container_name: kafka-producer
+    networks:
+      - kafka-net
+    volumes:
+      - type: volume
+        source: kafka-producer-vol
+        target: /logs/local
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+    depends_on:
+      - kafka-consumer
+
+volumes:
+  kafka-consumer-vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/logs/kafka/consumer
+  kafka-producer-vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/logs/kafka/producer
+
+networks:
+  kafka-net:
+    name: kafka-net
+    driver: bridge

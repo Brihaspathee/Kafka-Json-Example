@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  kafka:
+    consumer:
+      group-id: employee-consumer-group
+      enable-auto-commit: true
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:9092
+logging:
+  file:
+    name: logs/local/kafka-consumer.log

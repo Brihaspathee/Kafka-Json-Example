@@ -1,0 +1,1 @@
+docker build -t vbalaji215/kafka-consumer:0.0.1-SNAPSHOT .

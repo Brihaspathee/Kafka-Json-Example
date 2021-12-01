@@ -15,9 +15,7 @@ services:
     networks:
       - kafka-net
     volumes:
-      - type: volume
-        source: kafka-consumer-vol
-        target: /logs/local
+      - /Users/logs/kafka/json-example/consumer:/logs/local
     ports:
       - "8081:8081"
     environment:
@@ -28,9 +26,7 @@ services:
     networks:
       - kafka-net
     volumes:
-      - type: volume
-        source: kafka-producer-vol
-        target: /logs/local
+      - /Users/logs/kafka/json-example/producer:/logs/local
     ports:
       - "8082:8082"
     environment:
@@ -38,19 +34,19 @@ services:
     depends_on:
       - kafka-consumer
 
-volumes:
-  kafka-consumer-vol:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /Users/logs/kafka/consumer
-  kafka-producer-vol:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /Users/logs/kafka/producer
+#volumes:
+#  kafka-consumer-vol:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: /Users/logs/kafka/consumer
+#  kafka-producer-vol:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: /Users/logs/kafka/producer
 
 networks:
   kafka-net:
